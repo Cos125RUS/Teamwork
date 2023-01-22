@@ -1,0 +1,62 @@
+Задача: Создать информационную систему позволяющую работать с сотрудниками некой компании.
+
+Описание структуры ПО.
+
+_____________________________________
+
+Модуль: main.py
+
+Импортирует: 
+
+Содержит методы: не содержит
+
+_____________________________________
+
+Модуль: convertData.py
+
+Импортирует:
+
+Содержит методы:
+1. exportToJson(myDB.csv, newDB.json). Ничего не возвращает
+2. exportToCsv(myDB.csv, newDB.csv). Ничего не возвращает
+3. importFromJson(DB.json, myDB.csv). Ничего не возвращает
+4. importFromCsv(DB.csv, myDB.csv). Ничего не возвращает
+
+_____________________________________
+
+Модуль: parser.py
+
+Импортирует:
+
+Содержит методы:
+1. jsonParser(DB.json). return list(id,surname,name,patronymic,position)
+2. csvParser(DB.csv). return list(id,surname,name,patronymic,position)
+
+_____________________________________
+
+Модуль: action.py
+
+Импортирует:
+
+Содержит методы:
+1. find(atribute, data). return list(id,surname,name,patronymic,position)
+atribute - в каком поле ищем. Возможные значения: "id","surname","name","patronymic","position".
+data - что ищем.
+2. add(surname,name,patronymic,position). Ничего не возвращает
+surname - фамилия
+name - имя
+patronymic - отчетсво
+position - должность
+3. delete(id). Ничего не возвращает
+id - номер записи
+
+_____________________________________
+
+Модуль: view.py
+
+Импортирует:
+
+Содержит методы:
+1. menu(). return command
+command - выбор пункта меню.
+2. DB(). 
