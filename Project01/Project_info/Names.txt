@@ -11,5 +11,5 @@ _____________________________________
 Содержит методы:
 1. exportToJson(). Ничего не возвращает.
 2. exportToTXT(). Ничего не возвращает.
-3. importCSV(dict(ключ id, значение list(surname, name, patonomic, position, salary))).
+3. importCSV(). return dict(ключ id, значение list(surname, name, patonomic, position, salary))
 4. exportToCSV(). Ничего не возвращает.
