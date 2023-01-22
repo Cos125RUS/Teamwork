@@ -6,9 +6,11 @@ _____________________________________
 
 Модуль: convertData.py
 
-Импортирует:
+Импортирует: ничего.
 
 Содержит методы:
-1. exportToJson(). Ничего не возвращает
-2. exportToTXT(). Ничего не возвращает
-3. import(). return dict(ключ id, значение list(surname, name, patonomic, position, salary))
+1. exportToJSON(). Ничего не возвращает.
+2. exportToTXT(). Ничего не возвращает.
+3. exportToCSV(). Ничего не возвращает.
+4. importCSV(). return dict(ключ id, значение list(surname, name, patonomic, position, salary))
+
