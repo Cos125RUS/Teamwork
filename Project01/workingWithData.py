@@ -32,7 +32,7 @@ def sortOfPosition(myDict, position):
 def checkValidPosition(request):
     # professions - база данных профессий в нашем учреждении по запросу из данного модуля
     # professions = def()
-    professions = {1: 'электрик', 2: 'сантехник', 3: 'инженер', 4: 'директор'} # Временное решение для проверки
+    professions = {1: 'электрик', 2: 'сантехник', 3: 'инженер', 4: 'директор', 5: 'уборщик'} # Временное решение для проверки
     return bool(list(check.count(request) for check in professions.items()).count(1))
 
 
@@ -88,8 +88,33 @@ def newPersonal(myDict, newMember):
 
 
 # 4.1 Проверка введённых данных о сотруднике (вызывается из Контроллера после полученных от пользователя значений)
-def checkCorrectInput(newMember):
+def checkCorrectInput(myDict, newMember):
+    # Если реализуем пошаговый ввод данных, тогда общую проверку заменим на поочерёдный вызов из Контроллера
+    name, surname, patronymic, position, salary = newMember # Разнуменуем входящие данные
+    # Проверка зп на символьные и отрицательные значения
+    if not (alphaCheck(salary) and int(salary) > 0):
+        return False
+    if not checkValidPosition(position): # Проверяем, не отсутствует ли профессия в нашем списке профессий
+        # Создать запрос на добавление новой профессии в список вместо прерывания
+        print('Новая профессия')
+    # Проверка на повторный ввод сотрудника (поиск аналогичной записи в БД)
+    find = findPersonal(myDict, 1, surname)
+    if not (0 in find.keys()): # Проверяем фамилии на совпадения
+        find = findPersonal(find, 0, name)
+        if not (0 in find.keys()):# Проверяем имена на совпадения
+            find = findPersonal(find, 2, patronymic)
+            if not (0 in find.keys()): # Проверяем отчество на совпадения
+                print('Человек с таким ФИО уже записан') # Запрос пользователю на продолжение ввода
+                find = findPersonal(find, 3, position)
+                if not (0 in find.keys()): # Проверяем должность на совпадения
+                    print('Полное совпадение с ранее записанным сотрудником') # Запрос пользователю на продолжение ввода
+    return True
 
+
+
+# 5. Удаление сотрудника
+def deletion(myDict, delMember):
+    print(delMember)
     return 0
 
 
@@ -130,3 +155,10 @@ newMember = ('Марья', 'Прокофьева', 'Ивановна', 'убор
 print(newPersonal(myDict, newMember))
 
 # 5
+checkCorrectInput(myDict, ('Петр', 'Прохоров', 'Петрович', 'менеджер', '100000'))
+checkCorrectInput(myDict, ('Иван', 'Алеексеев', 'Иванович', 'электрик', '50000'))
+
+
+# 6
+
+deletion(myDict, {1: ['Иван', 'Алеексеев', 'Иванович', 'электрик', '50000']})
