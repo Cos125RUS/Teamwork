@@ -21,9 +21,45 @@ _____________________________________
 
 Импортирует: ничего.
 
-Содержит методы:
-1. findPersonal(dict(база данных), int(индекс поискового элемента), str(поисковой запрос)). 
+Содержит:
+Основные методы:
+1. Поиск сотрудника по ключу и значению
+findPersonal(dict(база данных), int(индекс поискового элемента), str(поисковой запрос)). 
 return dict(ключ id, значение list(surname, name, patonomic, position, salary)).
-2. sortOfPosition(dict(база данных), str(должность)).
+2. Выборка сотрудников по должности
+sortOfPosition(dict(база данных), str(должность)).
 return dict(ключ id, значение list(surname, name, patonomic, position, salary)).
-3.  
+3. Выборка сотрудников по зарплате
+sortOfSalary(dict(база данных), int(min поисковое значение), int(max поисковое значение))
+return dict(ключ id, значение list(surname, name, patonomic, position, salary))
+4.Добавление сотрудника в словарь
+newPersonal(dict(база данных), tuple(кортеж введённых пользователем значений))
+return dict(обновлённая БД)
+5.1. Удаление сотрудника по записи
+deletionOnPerson(dict(база данных), dict(ключ id, значение list(surname, name, patonomic, position, salary)))
+return dict(обновлённая БД)
+5.2. Удаление сотрудника по ID
+deletionOnID(dict(база данных), int(id сотрудника))
+return dict(обновлённая БД)
+6. Обновление данных сотрудника
+reloading(dict(база данных), tuple(кортеж введённых обновлённых данных по сотруднику), int(id сотрудника))
+return dict(обновлённая БД)
+
+
+Вспомогательные методы:
+1. Проверка поискового значения (профессия)
+checkValidPosition(str(должность)) 
+Метод должен подгружать Базу Данных по профессиям
+return bool(совпадение со списком)
+2. Проверка поискового значения (зарплата)
+checkValue(int(min поисковое значение), int(max поисковое значение))
+return bool(удовлетворение условиям)
+3. Проверка на символьный ввод
+alphaCheck(str(вводимый текст))
+return bool(поиск букв)
+4. Проверка введённых данных о сотруднике
+checkCorrectInput(dict(база данных), tuple(кортеж введённых пользователем значений))
+return bool(пошаговая проверка)
+5. Извлечение записи из БД
+takeProfile(dict(база данных), int(id сотрудника))
+return dict(ключ id, значение list(surname, name, patonomic, position, salary))
