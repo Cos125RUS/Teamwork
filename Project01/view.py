@@ -1,5 +1,5 @@
-def show_menu() -> int:
-    print("\n" + "=" * 20)
+def showMenu() -> int:
+    print("\n" + "=" * 50)
     print("Выберите необходимое действие")
     print("1. Найти сотрудника")
     print("2. Сделать выборку сотрудников по должности")
@@ -9,29 +9,28 @@ def show_menu() -> int:
     print("6. Обновить данные сотрудника")
     print("7. Экспортировать данные в формате json")
     print("8. Экспортировать данные в формате csv")
-    print("9. Закончить работу")
+    print("0. Закончить работу")
     return int(input("Введите номер необходимого действия: "))
 
-
 # 1. Найти сотрудника
-def find_peaple():
+def findPeaple():
     return input('Wat`s find? ')
 
 
 # 2. Сделать выборку сотрудников по должности
-def position_sort():
+def positionSort():
 
     return 0
 
 
 # 3. Сделать выборку сотрудников по зарплате
-def salary_sort():
+def salarySort():
 
     return 0
 
 
 # 4. Добавить сотрудника
-def add_new_personal():
+def addNewPersonal():
     name = input('Name: ')
     surname = input('Surname: ')
     position = input('Position: ')
@@ -40,25 +39,25 @@ def add_new_personal():
 
 
 # 5. Удалить сотрудника
-def del_personal():
+def delPersonal():
 
     return 0
 
 
 # 6. Обновить данные сотрудника
-def reload_personal_data():
+def reloadPersonalData():
 
     return 0
 
 
 # 7. Экспортировать данные в формате json
-def export_json():
+def exportJSON():
 
     return 0
 
 
 # 8. Экспортировать данные в формате csv
-def export_csv():
+def exportCSV():
 
     return 0
 
