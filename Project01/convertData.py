@@ -80,7 +80,7 @@ def importCSV():
     # словарь, в который складываются записи из БД
     myDict = {}
     # открываем файл на чтение
-    with open(myDataBasePath, 'r', encoding = 'utf-8') as dataBase:
+    with open(myDataBasePath, 'r', encoding = 'cp1251') as dataBase:
         for line in dataBase:
             # пропускаем первую строку
             if line.strip()[0] != 'i':
