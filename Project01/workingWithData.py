@@ -1,6 +1,8 @@
 
 
-# 1. Поиск сотрудника по ключу и значению
+# 1. Основные функции:
+
+# 1.1. Поиск сотрудника по ключу и значению
 def findPersonal(myDict, searchKey, request):
     # searchKey - выбираемый пользователем объект поиска (int)
     # request - поисковое значение, вводимое с клавиатуры (str)
@@ -14,7 +16,7 @@ def findPersonal(myDict, searchKey, request):
 
 
 
-# 2. Выборка сотрудников по должности
+# 1.2. Выборка сотрудников по должности
 def sortOfPosition(myDict, position):
     res = {}
     if checkValidPosition(position): # Проверка на правильный ввод (если реализуем выбор профессии из списка вместо ввода, проверка не нужна)
@@ -28,15 +30,9 @@ def sortOfPosition(myDict, position):
         res[0] = ['Должность указана неверно']
     return res
 
-# 2.1 Проверка поискового значения (профессия)
-def checkValidPosition(request):
-    # professions - база данных профессий в нашем учреждении по запросу из данного модуля
-    # professions = def()
-    professions = {1: 'электрик', 2: 'сантехник', 3: 'инженер', 4: 'директор', 5: 'уборщик'} # Временное решение для проверки
-    return bool(list(check.count(request) for check in professions.items()).count(1))
 
 
-# 3. Выборка сотрудников по зарплате
+# 1.3. Выборка сотрудников по зарплате
 def sortOfSalary(myDict, min, max):
     res = {}
     if checkValue(min, max): # Проверка введённых значений
@@ -49,27 +45,10 @@ def sortOfSalary(myDict, min, max):
         res[0] = ['Значение указано неверно']
     return res
 
-# 3.1 Проверка поискового значения (зарплата)
-def checkValue(min, max):
-    if alphaCheck(min) and alphaCheck(max): # Проверка на символьный ввод
-        # Преобразуем строку в число при удачной проверки
-        min = int(min)
-        max = int(max)
-        # Проверка на отрицательные значения и min > max
-        if max < 0 or min < 0 or max < min:
-            return False
-    else:
-        return False
-    return True
-
-
-# Проверка на символьный ввод
-def alphaCheck(value):
-    return bool((list(symbol.isalpha() for symbol in value)).count(1) == 0)
 
 
 
-# 4. Добавление сотрудника в словарь
+# 1.4. Добавление сотрудника в словарь
 def newPersonal(myDict, newMember):
     lastKeys = int(list(myDict.keys())[-1]) # Смотрим id последней записи
     # Проверяем, равен ли последний id общему количеству записей
@@ -87,7 +66,79 @@ def newPersonal(myDict, newMember):
     return myDict
 
 
-# 4.1 Проверка введённых данных о сотруднике (вызывается из Контроллера после полученных от пользователя значений)
+
+# 1.5(1) Удаление сотрудника по записи
+def deletionOnPerson(myDict, delMember):
+    for delID in delMember.keys(): # Извлекаем id пользователя
+        del myDict[delID] # Удаляем пользователя по id
+    return myDict
+
+
+# 1.5(2) Удаление сотрудника по ID
+def deletionOnID(myDict, delID):
+    del myDict[delID]
+    return myDict
+
+
+
+
+# 1.6. Обновление данных сотрудника
+def reloading(myDict, changedPersonal, PersID):
+    deletionOnID(myDict, PersID) # Удаляем запись сотрудника
+    checkCorrectInput(myDict, changedPersonal) # Проверка на повторения
+    myDict[PersID] = list(changedPersonal) # Создаём новую запись под тем же id
+    myDict = dict(sorted(myDict.items())) # Сортируем словарь
+    return myDict
+
+
+
+
+
+
+# 2. Вспомогательные функции:
+
+# 2.1 Извлечение записи из БД
+def takeProfile(myDict, id):
+    return {id: myDict[id]}
+
+
+
+
+
+
+# 3. Проверочные функции:
+
+# 3.1 Проверка поискового значения (профессия)
+def checkValidPosition(request):
+    # professions - база данных профессий в нашем учреждении по запросу из данного модуля
+    # professions = def()
+    professions = {1: 'электрик', 2: 'сантехник', 3: 'инженер', 4: 'директор', 5: 'уборщик'} # Временное решение для проверки
+    return bool(list(check.count(request) for check in professions.items()).count(1))
+
+
+
+# 3.2 Проверка поискового значения (зарплата)
+def checkValue(min, max):
+    if alphaCheck(min) and alphaCheck(max): # Проверка на символьный ввод
+        # Преобразуем строку в число при удачной проверки
+        min = int(min)
+        max = int(max)
+        # Проверка на отрицательные значения и min > max
+        if max < 0 or min < 0 or max < min:
+            return False
+    else:
+        return False
+    return True
+
+
+
+# 3.3 Проверка на символьный ввод
+def alphaCheck(value):
+    return bool((list(symbol.isalpha() for symbol in value)).count(1) == 0)
+
+
+
+# 3.4 Проверка введённых данных о сотруднике (вызывается из Контроллера после полученных от пользователя значений)
 def checkCorrectInput(myDict, newMember):
     # Если реализуем пошаговый ввод данных, тогда общую проверку заменим на поочерёдный вызов из Контроллера
     name, surname, patronymic, position, salary = newMember # Разнуменуем входящие данные
@@ -109,41 +160,6 @@ def checkCorrectInput(myDict, newMember):
                 if not (0 in find.keys()): # Проверяем должность на совпадения
                     print('Полное совпадение с ранее записанным сотрудником') # Запрос пользователю на продолжение ввода
     return True
-
-
-
-# 5.1 Удаление сотрудника по записи
-def deletionOnPerson(myDict, delMember):
-    for delID in delMember.keys(): # Извлекаем id пользователя
-        del myDict[delID] # Удаляем пользователя по id
-    return myDict
-
-# 5.2 Удаление сотрудника по ID
-def deletionOnID(myDict, delID):
-    del myDict[delID]
-    return myDict
-
-
-
-
-# 6. Обновление данных сотрудника
-def reloading(myDict, changedPersonal, PersID):
-    deletionOnID(myDict, PersID) # Удаляем запись сотрудника
-    checkCorrectInput(myDict, changedPersonal) # Проверка на повторения
-    myDict[PersID] = list(changedPersonal) # Создаём новую запись под тем же id
-    myDict = dict(sorted(myDict.items())) # Сортируем словарь
-    return myDict
-
-
-# Извлечение записи из БД
-def takeProfile(myDict, id):
-    return {id: myDict[id]}
-
-
-
-
-
-
 
 # ------------------------------------------------------------------------
 # Проверка работы функций:
@@ -198,4 +214,6 @@ print(myDict)
 
 # 6
 myDict = reloading(myDict, ('Марья', 'Прокофьева', 'Ивановна', 'уборщик', '40000'), 2)
+myDict = reloading(myDict, ('Антон', 'Семенов', 'Петрович', 'директор', '60000'), 4)
+
 print(myDict)
