@@ -39,7 +39,7 @@ def checkValidPosition(request):
 # 3. Выборка сотрудников по зарплате
 def sortOfSalary(myDict, min, max):
     res = {}
-    if checkValidPosition(min, max): # Проверка введённых значений
+    if checkValue(min, max): # Проверка введённых значений
         for i in myDict:
             if int(min) <= int(myDict[i][4]) <= int(max): # Проверка критериев по каждому сотруднику
                 res[i] = myDict[i] # Подходящих сотрудников добавляем в новый словарь
@@ -50,12 +50,9 @@ def sortOfSalary(myDict, min, max):
     return res
 
 # 3.1 Проверка поискового значения (зарплата)
-def checkValidPosition(min, max):
-    # Проверка на символьный ввод
-    alphaCheckMin = bool((list(symbol.isalpha() for symbol in min)).count(1) == 0)
-    alphaCheckMax = bool((list(symbol.isalpha() for symbol in max)).count(1) == 0)
-    # Преобразуем строку в число при удачной проверки
-    if alphaCheckMin and alphaCheckMax:
+def checkValue(min, max):
+    if alphaCheck(min) and alphaCheck(max): # Проверка на символьный ввод
+        # Преобразуем строку в число при удачной проверки
         min = int(min)
         max = int(max)
         # Проверка на отрицательные значения и min > max
@@ -64,6 +61,11 @@ def checkValidPosition(min, max):
     else:
         return False
     return True
+
+
+# Проверка на символьный ввод
+def alphaCheck(value):
+    return bool((list(symbol.isalpha() for symbol in value)).count(1) == 0)
 
 
 
@@ -84,8 +86,11 @@ def newPersonal(myDict, newMember):
                 break # Прерываем поиск после первой найденной пустой строки
     return myDict
 
-# 4.1 Создание новой записи о сотруднике
 
+# 4.1 Проверка введённых данных о сотруднике (вызывается из Контроллера после полученных от пользователя значений)
+def checkCorrectInput(newMember):
+
+    return 0
 
 
 
@@ -94,7 +99,7 @@ def newPersonal(myDict, newMember):
 
 
 # ------------------------------------------------------------------------
-# Проверка работы модулей:
+# Проверка работы функций:
 
 # 1
 searchKey = 0
@@ -104,18 +109,18 @@ myDict = {1: ['Иван', 'Алеексеев', 'Иванович', 'элект�
           4: ['Антон', 'Семенов', 'Петрович', 'сантехник', '60000'],\
           5: ['Никита', 'Иванов', 'Ильич', 'инженер', '70000']}
 
-# print(findPersonal(myDict, searchKey, request))
+print(findPersonal(myDict, searchKey, request))
 
 # 2
-# position = 'электрик'
-position = 'директор'
-# print(sortOfPosition(myDict, position))
+position = 'электрик'
+# position = 'директор'
+print(sortOfPosition(myDict, position))
 
 # 3
-max = '6500'
+max = '65000'
 min = '5100'
 
-# print(sortOfSalary(myDict, min, max))
+print(sortOfSalary(myDict, min, max))
 
 
 
@@ -124,3 +129,4 @@ min = '5100'
 newMember = ('Марья', 'Прокофьева', 'Ивановна', 'уборщик', '35000')
 print(newPersonal(myDict, newMember))
 
+# 5
