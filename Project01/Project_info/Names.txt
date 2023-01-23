@@ -14,3 +14,16 @@ _____________________________________
 3. exportToCSV(). Ничего не возвращает.
 4. importCSV(). return dict(ключ id, значение list(surname, name, patonomic, position, salary))
 
+
+
+
+Модуль: workingWithData.py
+
+Импортирует: ничего.
+
+Содержит методы:
+1. findPersonal(dict(база данных), int(индекс поискового элемента), str(поисковой запрос)). 
+return dict(ключ id, значение list(surname, name, patonomic, position, salary)).
+2. sortOfPosition(dict(база данных), str(должность)).
+return dict(ключ id, значение list(surname, name, patonomic, position, salary)).
+3.  

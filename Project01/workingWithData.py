@@ -8,9 +8,9 @@ def findPersonal(myDict, searchKey, request):
     for i in myDict: # Проход по словарю
         if myDict[i][searchKey].lower() == request.lower(): # Ищем совпадения по объекту поиска
             res[i] = myDict[i]
-            return res # Удачный поиск
-    res[0] = ['Сотрудник не найден']
-    return res # Неудачный поиск
+    if not len(res): # Неудачный поиск
+        res[0] = ['Сотрудник не найден']
+    return res
 
 
 
