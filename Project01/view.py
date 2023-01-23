@@ -14,8 +14,7 @@ def showMenu() -> int:
 
 # 1. Найти сотрудника
 def findPeaple():
-    input('Wat`s find? ')
-    return 0
+    return input('Введите запрос: ')
 
 
 # 2. Сделать выборку сотрудников по должности

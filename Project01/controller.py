@@ -18,7 +18,10 @@ def start():
 
 # 1. Найти сотрудника
 def findMember():
-    searchParameter = v.findPeaple()
+    searchParameter = v.findPeaple() # Получили запрос
+    dataBase = cd.importCSV() # Подгрузили БД
+    res = wwd.findPersonal(dataBase, searchParameter) # Получили результат поиска
+
     return 0
 
 

@@ -93,11 +93,15 @@ def reloading(myDict, changedPersonal, PersID):
     return myDict
 
 
+
+
 # 2. Вспомогательные функции:
 
 # 2.1 Извлечение записи из БД
 def takeProfile(myDict, id):
     return {id: myDict[id]}
+
+
 
 
 # 3. Проверочные функции:
