@@ -5,11 +5,12 @@ import convertData as cd
 
 # Стартовое меню
 def start():
-    programRun = True
+    programRun = True # Флаг для зацикливания
     options = [exitOfProgram, findMember, position, salary, addMember, delMember, update, exportJSON, exportCSV]
     while programRun:
-        userIn = v.showMenu()
-        if userIn == 0:
+        userIn = v.showMenu() # Выбор пользователя в меню
+        if userIn == 0: # Проверка на exit
+            # Меняем флаг для выхода из программы
             programRun = False
         options[userIn]
     return 0
@@ -17,6 +18,7 @@ def start():
 
 # 1. Найти сотрудника
 def findMember():
+    searchParameter = v.findPeaple()
     return 0
 
 

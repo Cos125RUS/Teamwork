@@ -14,7 +14,8 @@ def showMenu() -> int:
 
 # 1. Найти сотрудника
 def findPeaple():
-    return input('Wat`s find? ')
+    input('Wat`s find? ')
+    return 0
 
 
 # 2. Сделать выборку сотрудников по должности
@@ -63,7 +64,7 @@ def exportCSV():
 
 
 # 9. Закончить работу
-def exit_of_program():
+def exitOfProgram():
 
      return 0
 
