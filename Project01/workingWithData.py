@@ -112,10 +112,32 @@ def checkCorrectInput(myDict, newMember):
 
 
 
-# 5. Удаление сотрудника
-def deletion(myDict, delMember):
-    print(delMember)
-    return 0
+# 5.1 Удаление сотрудника по записи
+def deletionOnPerson(myDict, delMember):
+    for delID in delMember.keys(): # Извлекаем id пользователя
+        del myDict[delID] # Удаляем пользователя по id
+    return myDict
+
+# 5.2 Удаление сотрудника по ID
+def deletionOnID(myDict, delID):
+    del myDict[delID]
+    return myDict
+
+
+
+
+# 6. Обновление данных сотрудника
+def reloading(myDict, changedPersonal, PersID):
+    deletionOnID(myDict, PersID) # Удаляем запись сотрудника
+    checkCorrectInput(myDict, changedPersonal) # Проверка на повторения
+    myDict[PersID] = list(changedPersonal) # Создаём новую запись под тем же id
+    myDict = dict(sorted(myDict.items())) # Сортируем словарь
+    return myDict
+
+
+# Извлечение записи из БД
+def takeProfile(myDict, id):
+    return {id: myDict[id]}
 
 
 
@@ -152,13 +174,28 @@ print(sortOfSalary(myDict, min, max))
 # 4
 
 newMember = ('Марья', 'Прокофьева', 'Ивановна', 'уборщик', '35000')
-print(newPersonal(myDict, newMember))
+myDict = newPersonal(myDict, newMember)
+print(myDict)
 
-# 5
+# 4.1
 checkCorrectInput(myDict, ('Петр', 'Прохоров', 'Петрович', 'менеджер', '100000'))
 checkCorrectInput(myDict, ('Иван', 'Алеексеев', 'Иванович', 'электрик', '50000'))
 
 
-# 6
+# 5
 
-deletion(myDict, {1: ['Иван', 'Алеексеев', 'Иванович', 'электрик', '50000']})
+myDict = deletionOnPerson(myDict, {1: ['Иван', 'Алеексеев', 'Иванович', 'электрик', '50000']})
+print(myDict)
+
+
+# Извлечение записи из БД
+takeID = 4
+takeMan = takeProfile(myDict, takeID)
+print(takeMan)
+
+myDict = deletionOnID(myDict, 5)
+print(myDict)
+
+# 6
+myDict = reloading(myDict, ('Марья', 'Прокофьева', 'Ивановна', 'уборщик', '40000'), 2)
+print(myDict)
