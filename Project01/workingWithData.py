@@ -5,7 +5,7 @@ def findPersonal(myDict, request):
     # request - поисковое значение, вводимое с клавиатуры (str)
     res = {}
     requestWords = request.split()
-    satisfyIndex = [0 for member in range(max(myDict.keys()) + 1)] # Список для подсчёта совпадений
+    satisfyIndex = [0 for i in range(max(myDict.keys()) + 1)] # Список для подсчёта совпадений
     for i in myDict: # Проход по словарю
         for j in myDict[i]: # Проход по элементам
             if request.lower().count(j.lower()):  # Ищем совпадения по объекту поиска

@@ -16,18 +16,18 @@ def showMenu() -> int:
 # 1. Запрос на выборку сотрудников по зарплате
 def salarySort():
     print('Укажите критерии поиска')
-    min = input('От: ', end='\t\t')
+    min = input('От: ')
     max = input('До: ')
     return min, max
 
 
 # 2. Запрос данных по сотруднику
 def requestPersonalData():
-    name = input('Name: ')
-    surname = input('Surname: ')
-    patronymic = input('patronymic')
-    position = input('Position: ')
-    salary = input('Salary: ')
+    surname = input('Фамилия: ')
+    name = input('Имя: ')
+    patronymic = input('Отчетсво: ')
+    position = input('Должность: ')
+    salary = input('Зарплата: ')
     return (name, surname, patronymic, position, salary)
 
 
@@ -40,16 +40,17 @@ def info(message):
 def viewDataBase(dataBase):
     print("\n" + "=" * 50)
     print("Список сотрудников:\n")
-    for i in dataBase.keys:
-        print(i, end='.  ')
-        for j in dataBase[i]:
-            print(*j, end='  ')
+    for key in dataBase:
+        print(key, end='.  ')
+        for j in dataBase[key]:
+            print(j, end='  ')
+        print()
     print()
 
 
 # 5. Запрос ID
 def enterID():
-    return int(input('Укажите ID сотрудника'))
+    return int(input('Укажите ID сотрудника: '))
 
 
 # 6. Запрос строки

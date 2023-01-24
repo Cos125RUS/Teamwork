@@ -74,7 +74,7 @@ def exportToCSV(myDict):
 # метод для импорта БД в формат .csv. Используется для выдачи словаря, для последующей работы с ним
 def importCSV():
     # путь к файлу БД
-    myDataBasePath = 'database.csv'
+    myDataBasePath = 'database1.csv'
     # переменная подсчета записей
     myCount = 0
     # словарь, в который складываются записи из БД
