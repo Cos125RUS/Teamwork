@@ -6,8 +6,8 @@ def findPersonal(myDict, request):
     res = {}
     requestWords = request.split()
     satisfyIndex = [0 for member in range(max(myDict.keys()) + 1)] # Список для подсчёта совпадений
-    for i in myDict:  # Проход по словарю
-        for j in myDict[i]:  # Проход по элементам
+    for i in myDict: # Проход по словарю
+        for j in myDict[i]: # Проход по элементам
             if request.lower().count(j.lower()):  # Ищем совпадения по объекту поиска
                 satisfyIndex[i] += 1  # Считаем количество совпадений в каждом элементе словаря
     if max(satisfyIndex): # Проверка наличия совпадений
@@ -68,7 +68,7 @@ def newPersonal(myDict, newMember):
                 myDict[i] = list(newMember)
                 myDict = dict(sorted(myDict.items()))
                 break  # Прерываем поиск после первой найденной пустой строки
-    return myDict
+    return myDict # Не уверен, что его нужно возвращать. Вроде бы, он передаётся по ссылке.
 
 
 # 1.5(1) Удаление сотрудника по записи
@@ -81,7 +81,7 @@ def deletionOnPerson(myDict, delMember):
 # 1.5(2) Удаление сотрудника по ID
 def deletionOnID(myDict, delID):
     del myDict[delID]
-    return myDict
+    return myDict # Не уверен, что его нужно возвращать. Вроде бы, он передаётся по ссылке.
 
 
 # 1.6. Обновление данных сотрудника
