@@ -6,11 +6,11 @@ import convertData as cd
 # Стартовое меню
 def start():
     programRun = True # Флаг для зацикливания
-    options = [exitOfProgram, findMember, position, salary, addMember, delMember, update, exportJSON, exportCSV]
+    options = [exitOfProgram, findMember, position, salary, addMember, delMember, update, exportJSON, exportCSV, showAllPersonal]
     while programRun:
         # Выбор пользователя в меню:
         userIn = v.showMenu() # v.showMenu заменить на модуль основного меню из windowsView
-        if userIn < 0 or userIn > 8:
+        if userIn < 0 or userIn > 9:
             v.info('\nОшибка ввода!\n') # Проверка на дурака
             v.request('Нажмите Enter для продолжения работы')  # Задержка экрана до нажатия Enter
         else:
@@ -110,12 +110,20 @@ def exportJSON():
 # 8. Экспортировать данные в формате txt
 def exportCSV():
     # v.showMenu заменить на модуль основного меню из windowsView
-    cd.exportToTXT()
+    cd.exportToTXT() # Сохраняем БД
     v.info('Файл TXT создан')
     v.request('Нажмите Enter для продолжения работы') # Задержка экрана до нажатия Enter
 
 
-# 9. Закончить работу
+
+# 9. Отобразить список сотрудников
+def showAllPersonal():
+    dataBase = cd.importCSV() # Подгрузка БД
+    v.viewDataBase(dataBase) # Отображаем список сотрудников
+    v.request('Нажмите Enter для продолжения работы') # Задержка экрана до нажатия Enter
+
+
+# 0. Закончить работу
 def exitOfProgram():
     # v.showMenu заменить на модуль основного меню из windowsView
     v.info('Выход из приложения') # Прощальное сообщение

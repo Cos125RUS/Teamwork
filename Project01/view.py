@@ -9,6 +9,7 @@ def showMenu() -> int:
     print("6. Обновить данные сотрудника")
     print("7. Экспортировать данные в формате json")
     print("8. Экспортировать данные в формате csv")
+    print("9. Отобразить список сотрудников")
     print("0. Закончить работу")
     return int(input("Введите номер необходимого действия: "))
 
@@ -58,43 +59,5 @@ def request(message):
     return input(message)
 
 
-
-
-
-#
-# # 1. Найти сотрудника
-# def findPeaple():
-#     return input('Введите запрос: ')
-#
-#
-# # 2. Сделать выборку сотрудников по должности
-# def positionSort():
-#     return input('Введите профессию: ')
-#
-#
-#
-# # 5. Удалить сотрудника
-# def delPersonal():
-#     return int(input('Укажите ID сотрудника'))
-#
-#
-# # 6. Обновить данные сотрудника
-# def reloadPersonalData():
-#     return int(input('Укажите ID сотрудника'))
-#
-#
-# # 7. Экспортировать данные в формате json
-# def exportJSON():
-#     return 0
-#
-#
-# # 8. Экспортировать данные в формате csv
-# def exportCSV():
-#     return 0
-#
-#
-# # 9. Закончить работу
-# def exitOfProgram():
-#     return 0
 
 

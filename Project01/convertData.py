@@ -55,7 +55,7 @@ def exportToTXT():
 # сохранение БД
 def exportToCSV(myDict):
     # путь к файлу БД
-    myDataBasePath = 'database1.csv'
+    myDataBasePath = 'database.csv'
     # открываем файл на запись
     with open(myDataBasePath, 'w+', encoding = 'utf-8') as dataBase:
         dataBase.write(f'id;name;surname;patronymic;position;salary;\n')
@@ -74,7 +74,7 @@ def exportToCSV(myDict):
 # метод для импорта БД в формат .csv. Используется для выдачи словаря, для последующей работы с ним
 def importCSV():
     # путь к файлу БД
-    myDataBasePath = 'database1.csv'
+    myDataBasePath = 'database.csv'
     # переменная подсчета записей
     myCount = 0
     # словарь, в который складываются записи из БД
