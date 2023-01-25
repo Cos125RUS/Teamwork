@@ -123,6 +123,7 @@ def showAllPersonal():
     v.request('Нажмите Enter для продолжения работы') # Задержка экрана до нажатия Enter
 
 
+
 # 0. Закончить работу
 def exitOfProgram():
     # v.showMenu заменить на модуль основного меню из windowsView
