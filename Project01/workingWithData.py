@@ -66,7 +66,7 @@ def newPersonal(myDict, newMember):
             if int(key) != i:
                 # Если находим пустую строку, вписываем туда нового пользователя
                 myDict[i] = list(newMember)
-                myDict = dict(sorted(myDict.items()))
+                myDict = dict(sorted(myDict.keys()))
                 break  # Прерываем поиск после первой найденной пустой строки
     return myDict # Не уверен, что его нужно возвращать. Вроде бы, он передаётся по ссылке.
 
