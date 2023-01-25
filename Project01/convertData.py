@@ -84,7 +84,7 @@ def importCSV():
                 count = 1
                 while oneLine[count] != ';':
                     count += 1
-                memberID = int(oneLine[count - 1])
+                memberID = int(oneLine[:count])
                 # разбиваем строку и формируем список
                 myList = line.strip().split(';')
                 # удалить последний элемент ''

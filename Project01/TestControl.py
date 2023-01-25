@@ -1,4 +1,3 @@
-import view as v
 import workingWithData as wwd
 import convertData as cd
 import userView as uv
@@ -15,34 +14,41 @@ def start():
 
 
 # 1. Отобразить список сотрудников
-def showAllPersonal():
+def showInformation(data = dataBase):
     global dataBase
     global myWindow
     uv.indention(myWindow, 2)
-    uv.viewList(dataBase, myWindow)
+    uv.viewList(data, myWindow)
 
 
 # 2. Добавить сотрудника
 def addMember():
     global dataBase
     global myWindow
-    # uv.indention(myWindow, 4)
     uv.changeField(myWindow)
 
-def transit(data):
-    wwd.newPersonal(dataBase, data)
-    cd.exportToCSV(dataBase)
 
 
 
-
-
-# 1. Найти сотрудника
+# 3. Найти сотрудника
 def findMember():
     global dataBase
     global myWindow
+    uv.indention(myWindow, 4)
+    uv.findRequest(myWindow)
 
-    return 0
+
+
+
+
+# Транзит данных между функциями
+def transit(index, data):
+    function = [wwd.newPersonal, wwd.findPersonal]
+    res = function[index](dataBase, data)
+    cd.exportToCSV(dataBase)
+    showInformation(res)
+
+
 
 
 
