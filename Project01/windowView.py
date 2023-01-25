@@ -28,7 +28,7 @@ def myAdd():
     wwd.newPersonal(myDict,[enName.get(), enSurname.get(), enPatronomic.get(), enPosition.get(), enSalary.get()])
     myCount = len(myDict)
     key = list(myDict)[-1]
-    
+
     if len(varList) < myCount:
         varList.append(IntVar())
         myCheckbutton = Checkbutton(text = str(key), variable = varList[myCount - 1])
@@ -40,7 +40,7 @@ def myAdd():
         position = Label(myWindow, text = myDict[key][3])
         salary = Label(myWindow, text = myDict[key][4])
         labelList.append([surname, name, patronomic, position, salary])
-    
+
     myCount = 0
     for key in myDict:
         varList[myCount] = IntVar()

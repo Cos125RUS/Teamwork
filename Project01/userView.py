@@ -3,7 +3,6 @@ import TestControl as control
 
 
 
-
 # Верхнее меню
 def upMenu(myWindow):
 
@@ -74,6 +73,7 @@ def viewList(myDict, myWindow):
 
 
 def changeField(myWindow):
+    res = []
     # вывести строку наименования таблицы БД
     Label(myWindow, text="Фамилия").grid(row=5, column=0)
     Label(myWindow, text="Имя").grid(row=5, column=1)
@@ -91,13 +91,16 @@ def changeField(myWindow):
     enPosition.grid(row=6, column=3)
     enSalary = Entry(width=10, font=('Courier', 10))
     enSalary.grid(row=6, column=4)
-    return (enName.get(), enSurname.get(), enPatronomic.get(), enPosition.get(), enSalary.get())
-
-def ok(myWindow):
     # кнопка добавить
-    addButton = Button(myWindow, text="Добавить", width=10, height=2, font=('Courier', 10), command=True)
+    addButton = Button(myWindow, text="Добавить", width=10, height=2, font=('Courier', 10),\
+                       command=lambda : control.transit((enName.get(), enSurname.get(), enPatronomic.get(), enPosition.get(), enSalary.get())))
     addButton.grid(row=7, column=1)
+    # return (enName.get(), enSurname.get(), enPatronomic.get(), enPosition.get(), enSalary.get())
 
+
+def pust(a, b, c, d, e):
+    data = [a, b, c, d, e]
+    print(data)
 
 
 def mainWindow():

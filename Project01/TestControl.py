@@ -27,15 +27,10 @@ def addMember():
     global dataBase
     global myWindow
     uv.indention(myWindow, 4)
-    file = uv.changeField(myWindow)
-    flag = uv.ok(myWindow)
-    if flag:
-        print(file)
+    uv.changeField(myWindow)
 
-
-    return 0
-
-
+def transit(data):
+    wwd.newPersonal(dataBase, data)
 
 
 
