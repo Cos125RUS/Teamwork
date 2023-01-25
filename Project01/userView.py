@@ -2,6 +2,15 @@ from tkinter import *
 import TestControl as control
 
 
+def mainWindow():
+    # инициализация окна
+    myWindow = Tk()
+    myWindow.title('ДЗ-8')
+    myWindow.geometry('540x600')
+    myWindow.resizable(width=False, height=False)
+    return myWindow
+
+
 
 # Верхнее меню
 def upMenu(myWindow):
@@ -27,7 +36,7 @@ def upMenu(myWindow):
     deleteButton.grid(row=0, column=4)
 
     # кнопка экспорт
-    exportButton = Button(myWindow, text="Экспорт", width=10, height=2, font=('Courier', 10), command=control.exportJSON)
+    exportButton = Button(myWindow, text="Экспорт", width=10, height=2, font=('Courier', 10), command=lambda :exportView(myWindow))
     exportButton.grid(row=0, column=5)
 
 
@@ -95,18 +104,10 @@ def changeField(myWindow):
     addButton = Button(myWindow, text="Добавить", width=10, height=2, font=('Courier', 10),\
                        command=lambda : control.transit((enName.get(), enSurname.get(), enPatronomic.get(), enPosition.get(), enSalary.get())))
     addButton.grid(row=7, column=1)
-    # return (enName.get(), enSurname.get(), enPatronomic.get(), enPosition.get(), enSalary.get())
 
 
-def pust(a, b, c, d, e):
-    data = [a, b, c, d, e]
-    print(data)
-
-
-def mainWindow():
-    # инициализация окна
-    myWindow = Tk()
-    myWindow.title('ДЗ-8')
-    myWindow.geometry('540x600')
-    myWindow.resizable(width=False, height=False)
-    return myWindow
+def exportView(myWindow):
+    JSONButton = Button(myWindow, text="JSON", width=10, height=2, font=('Courier', 10), command=control.exportJSON)
+    JSONButton.grid(row=1, column=5)
+    TXTButton = Button(myWindow, text="TXT", width=10, height=2, font=('Courier', 10), command=control.exportTXT)
+    TXTButton.grid(row=2, column=5)

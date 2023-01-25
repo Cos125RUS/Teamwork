@@ -1,17 +1,13 @@
 # метод для экспорта БД в формат .json
-def exportToJSON():
-    # путь к файлам БД
-    myDataBasePathCsv = 'database.csv'
+def exportToJSON(dataBase):
     myDataBasePathJson = 'database.json'
     # словарь, в который складываются записи из БД
     myList = []
-    # открываем файл CSV на чтение
-    with open(myDataBasePathCsv, 'r', encoding = 'utf-8') as dataBase:
-        for line in dataBase:
-            # запишем в список строки, кроме первой
-            if line[0] != 'i':
-                myList.append(line)
-    # открываем или создаем файл TXT на запись
+    for i in dataBase.keys():
+        line = [i]
+        for j in dataBase[i]:
+            line.append(j)
+        myList.append(line)
     with open(myDataBasePathJson, 'w+', encoding = 'utf-8') as jsonFile:
         # построчно записываем в формате JSON
         jsonFile.write('[')
@@ -20,12 +16,12 @@ def exportToJSON():
         for item in myList:
             jsonFile.write('\n')
             jsonFile.write('    {' + '\n')
-            jsonFile.write(f'        "id": {item.split(";")[0]},\n')
-            jsonFile.write(f'        "name": {item.split(";")[1]},\n')
-            jsonFile.write(f'        "surname": {item.split(";")[2]},\n')
-            jsonFile.write(f'        "patronymic": {item.split(";")[3]},\n')
-            jsonFile.write(f'        "position": {item.split(";")[4]},\n')
-            jsonFile.write(f'        "salary": {item.split(";")[5]}\n')
+            jsonFile.write(f'        "id": {item[0]},\n')
+            jsonFile.write(f'        "surname": {item[2]},\n')
+            jsonFile.write(f'        "name": {item[1]},\n')
+            jsonFile.write(f'        "patronymic": {item[3]},\n')
+            jsonFile.write(f'        "position": {item[4]},\n')
+            jsonFile.write(f'        "salary": {item[5]}\n')
             myCount += 1
             # определяем надо ли ставить запятую в конце
             if myCount != len(myList):
@@ -35,17 +31,16 @@ def exportToJSON():
         jsonFile.write('\n]')
         
 # метод для экспорта БД в формат .txt
-def exportToTXT():
-    # путь к файлам БД
-    myDataBasePathCsv = 'database.csv'
+def exportToTXT(dataBase):
     myDataBasePathTxt = 'database.txt'
     # словарь, в который складываются записи из БД
     myList = []
-    # открываем файл CSV на чтение
-    with open(myDataBasePathCsv, 'r', encoding = 'utf-8') as dataBase:
-        for line in dataBase:
-            # запишем в список строки
-            myList.append(line)
+    for i in dataBase.keys():
+        line = f'{i}. '
+        for j in dataBase[i]:
+            line += f'{j} '
+        line += '\n'
+        myList.append(line)
     # открываем или создаем файл TXT на запись
     with open(myDataBasePathTxt, 'w+', encoding = 'utf-8') as txtFile:
         # построчно записываем список
@@ -85,13 +80,17 @@ def importCSV():
             # пропускаем первую строку
             if line.strip()[0] != 'i':
                 # инкрементируем счетчик
-                myCount += 1
+                oneLine = line.strip()
+                count = 1
+                while oneLine[count] != ';':
+                    count += 1
+                memberID = int(oneLine[count - 1])
                 # разбиваем строку и формируем список
                 myList = line.strip().split(';')
                 # удалить последний элемент ''
                 myList.remove('')
                 myList.pop(0)
-                myDict[myCount] = myList
+                myDict[memberID] = myList
     # возвращаем словарь
     return myDict
 

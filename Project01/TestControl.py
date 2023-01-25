@@ -26,11 +26,12 @@ def showAllPersonal():
 def addMember():
     global dataBase
     global myWindow
-    uv.indention(myWindow, 4)
+    # uv.indention(myWindow, 4)
     uv.changeField(myWindow)
 
 def transit(data):
     wwd.newPersonal(dataBase, data)
+    cd.exportToCSV(dataBase)
 
 
 
@@ -84,13 +85,15 @@ def update():
 
 # 7. Экспортировать данные в формате json
 def exportJSON():
-    cd.exportToJSON()
+    global dataBase
+    cd.exportToJSON(dataBase)
 
 
 
 # 8. Экспортировать данные в формате txt
-def exportCSV():
-    cd.exportToTXT() # Сохраняем БД
+def exportTXT():
+    global dataBase
+    cd.exportToTXT(dataBase) # Сохраняем БД
 
 
 
