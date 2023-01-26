@@ -1,21 +1,24 @@
 from tkinter import *
 import TestControl as control
 
+varList = []
+checkbuttonList = []
+
 
 def mainWindow():
     # инициализация окна
     myWindow = Tk()
-    myWindow.title('ДЗ-8')
+    myWindow.title('Project01')
     myWindow.geometry('540x600')
     myWindow.resizable(width=False, height=False)
     return myWindow
 
 
-
 # Верхнее меню
 def upMenu(myWindow):
     # кнопка справка
-    menuButton = Button(myWindow, text="Сотрудники", width=10, height=2, font=('Courier', 10), command=control.showInformation)
+    menuButton = Button(myWindow, text="Сотрудники", width=10, height=2, font=('Courier', 10),
+                        command=control.showInformation)
     menuButton.grid(row=0, column=0)
     # кнопка добавить
     addButton = Button(myWindow, text="Добавить", width=10, height=2, font=('Courier', 10), command=control.addMember)
@@ -24,17 +27,19 @@ def upMenu(myWindow):
     findButton = Button(myWindow, text="Найти", width=10, height=2, font=('Courier', 10), command=control.findMember)
     findButton.grid(row=0, column=2)
     # кнопка изменить
-    selectionButton = Button(myWindow, text="Выборка", width=10, height=2, font=('Courier', 10), command=lambda :selectionView(myWindow))
+    selectionButton = Button(myWindow, text="Выборка", width=10, height=2, font=('Courier', 10),
+                             command=lambda: selectionView(myWindow))
     selectionButton.grid(row=0, column=3)
     # кнопка удалить
-    ectionButton = Button(myWindow, text="Действия", width=10, height=2, font=('Courier', 10), command=lambda :actionView(myWindow))
+    ectionButton = Button(myWindow, text="Действия", width=10, height=2, font=('Courier', 10),
+                          command=lambda: actionView(myWindow))
     ectionButton.grid(row=0, column=4)
     # кнопка экспорт
-    exportButton = Button(myWindow, text="Экспорт", width=10, height=2, font=('Courier', 10), command=lambda :exportView(myWindow))
+    exportButton = Button(myWindow, text="Экспорт", width=10, height=2, font=('Courier', 10),
+                          command=lambda: exportView(myWindow))
     exportButton.grid(row=0, column=5)
     # Отступ
     Label(myWindow, text='', width=10, height=2).grid(row=1, column=2)
-
 
 
 # Высплывающии кнопки:
@@ -45,36 +50,35 @@ def exportView(myWindow):
     TXTButton = Button(myWindow, text="TXT", width=10, height=2, font=('Courier', 10), command=control.exportTXT)
     TXTButton.grid(row=2, column=5)
 
+
 # Выборка
 def selectionView(myWindow):
-    positionButton = Button(myWindow, text="Должность", width=10, height=2, font=('Courier', 10), command=control.position)
+    positionButton = Button(myWindow, text="Должность", width=10, height=2, font=('Courier', 10),
+                            command=control.position)
     positionButton.grid(row=1, column=3)
     salaryButton = Button(myWindow, text="Зарплата", width=10, height=2, font=('Courier', 10), command=control.salary)
     salaryButton.grid(row=2, column=3)
+
 
 # Действия
 def actionView(myWindow):
     changeButton = Button(myWindow, text="Изменить", width=10, height=2, font=('Courier', 10), command=None)
     changeButton.grid(row=1, column=4)
-    delButton = Button(myWindow, text="Удадить", width=10, height=2, font=('Courier', 10), command=None)
+    delButton = Button(myWindow, text="Удадить", width=10, height=2, font=('Courier', 10), command=control.delMember)
     delButton.grid(row=2, column=4)
-
-
 
 
 # Список на экране
 def viewList(myDict, myWindow):
-    varList = []
-    checkbuttonList = []
     labelList = []
-    lines = len(myDict.keys())
-    myCount = lines
+    space = 10
+    myCount = space
     clear(myWindow)
 
     # цикл вывода Checkbutton и строчек БД
     for key in myDict:
-        varList.append(IntVar())
-        myCheckbutton = Checkbutton(text=key, variable=varList[myCount - lines])
+        varList.append(BooleanVar())
+        myCheckbutton = Checkbutton(text=key, variable=varList[myCount - space])
         myCheckbutton.grid(row=myCount, column=0)
         checkbuttonList.append(myCheckbutton)
         surname = Label(myWindow, text=myDict[key][1])
@@ -90,6 +94,18 @@ def viewList(myDict, myWindow):
         labelList.append([surname, name, patronomic, position, salary])
         myCount += 1
 
+
+
+
+# Чеклист
+def watchCheckList(myWindow, useData):
+    checkList = []
+    for i in varList:
+        checkList.append(1) if i.get() else checkList.append(0)
+    # for i in range(len(useData)):
+    #     print(myWindow.varList[i].get())
+        # if varList[i].get():
+            # checkList.append(i)
 
 
 # Добавление сотрудника
@@ -113,8 +129,9 @@ def changeField(myWindow):
     enSalary = Entry(width=10, font=('Courier', 10))
     enSalary.grid(row=6, column=4)
     # кнопка добавить
-    addButton = Button(myWindow, text="Добавить", width=10, height=2, font=('Courier', 10),\
-                       command=lambda : control.transit(0, (enName.get(), enSurname.get(), enPatronomic.get(), enPosition.get(), enSalary.get())))
+    addButton = Button(myWindow, text="Добавить", width=10, height=2, font=('Courier', 10), \
+                       command=lambda: control.transit(0, (
+                           enName.get(), enSurname.get(), enPatronomic.get(), enPosition.get(), enSalary.get())))
     addButton.grid(row=6, column=5)
 
 
@@ -124,9 +141,10 @@ def findRequest(myWindow):
     Label(myWindow, text="Запрос").grid(row=4, column=1)
     request = Entry(width=10, font=('Courier', 10))
     request.grid(row=4, column=2)
-    findButton = Button(myWindow, text="Найти", width=10, height=2, font=('Courier', 10),\
-                       command=lambda : control.transit(1, (request.get())))
+    findButton = Button(myWindow, text="Найти", width=10, height=2, font=('Courier', 10), \
+                        command=lambda: control.transit(1, (request.get())))
     findButton.grid(row=4, column=3)
+
 
 # Выбор должности
 def profRequest(myWindow):
@@ -134,9 +152,10 @@ def profRequest(myWindow):
     Label(myWindow, text="Должность").grid(row=4, column=1)
     request = Entry(width=10, font=('Courier', 10))
     request.grid(row=4, column=2)
-    findButton = Button(myWindow, text="Найти", width=10, height=2, font=('Courier', 10),\
-                       command=lambda : control.transit(2, (request.get())))
+    findButton = Button(myWindow, text="Найти", width=10, height=2, font=('Courier', 10), \
+                        command=lambda: control.transit(2, (request.get())))
     findButton.grid(row=4, column=3)
+
 
 # Выбор зарплаты
 def salRequest(myWindow):
@@ -147,8 +166,8 @@ def salRequest(myWindow):
     Label(myWindow, text="До").grid(row=4, column=3)
     upLine = Entry(width=10, font=('Courier', 10))
     upLine.grid(row=4, column=4)
-    findButton = Button(myWindow, text="Найти", width=10, height=2, font=('Courier', 10),\
-                       command=lambda : control.transit(3, (downLine.get(), upLine.get())))
+    findButton = Button(myWindow, text="Найти", width=10, height=2, font=('Courier', 10), \
+                        command=lambda: control.transit(3, (downLine.get(), upLine.get())))
     findButton.grid(row=6, column=2)
 
 
@@ -161,9 +180,9 @@ def infoWindow(message):
     Label(newWindow, text=message, width=250, height=200).pack()
     newWindow.mainloop()
 
-# Халтурная очистка окна
+
+# Очистка окна
 def clear(myWindow):
     for widget in myWindow.winfo_children():
         widget.destroy()
     upMenu(myWindow)
-    # Label(myWindow, text=" ", width=450, height=450).pack()

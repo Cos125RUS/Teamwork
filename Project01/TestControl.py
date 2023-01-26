@@ -4,6 +4,7 @@ import userView as uv
 
 dataBase = cd.importCSV()  # Подгрузили БД
 myWindow = uv.mainWindow()  # Загружаем меню
+useData = dataBase # Временные данные
 
 
 # Стартовое меню
@@ -20,8 +21,6 @@ def showInformation(data = dataBase):
 # 2. Добавить сотрудника
 def addMember():
     uv.changeField(myWindow)
-
-
 
 
 # 3. Найти сотрудника
@@ -42,16 +41,24 @@ def salary():
     uv.salRequest(myWindow)
 
 
+# 6. Удалить сотрудника
+def delMember():
+    uv.watchCheckList(myWindow, useData)
+    # varList = uv.varList
+    # wwd.deletionOnID(dataBase, varList)
+
+
 # Транзит данных между функциями
 def transit(index, data):
     function = [wwd.newPersonal, wwd.findPersonal, wwd.sortOfPosition, wwd.sortOfSalary]
-    res = function[index](dataBase, data)
+    global useData
+    useData = function[index](dataBase, data)
     cd.exportToCSV(dataBase)
-    # uv.clear(myWindow)
-    if 0 in res.keys():
-        uv.infoWindow(*res[0])
+    uv.clear(myWindow)
+    if 0 in useData.keys():
+        uv.infoWindow(*useData[0])
     else:
-        showInformation(res)
+        showInformation(useData)
 
 
 
@@ -66,10 +73,7 @@ def transit(index, data):
 
 
 
-# 5. Удалить сотрудника
-def delMember():
 
-    return 0
 
 
 # 6. Обновить данные сотрудника
