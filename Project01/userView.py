@@ -24,11 +24,11 @@ def upMenu(myWindow):
     findButton = Button(myWindow, text="Найти", width=10, height=2, font=('Courier', 10), command=control.findMember)
     findButton.grid(row=0, column=2)
     # кнопка изменить
-    changeButton = Button(myWindow, text="Выборка", width=10, height=2, font=('Courier', 10), command=lambda :selectionView(myWindow))
-    changeButton.grid(row=0, column=3)
+    selectionButton = Button(myWindow, text="Выборка", width=10, height=2, font=('Courier', 10), command=lambda :selectionView(myWindow))
+    selectionButton.grid(row=0, column=3)
     # кнопка удалить
-    deleteButton = Button(myWindow, text="Действия", width=10, height=2, font=('Courier', 10), command=lambda :actionView(myWindow))
-    deleteButton.grid(row=0, column=4)
+    ectionButton = Button(myWindow, text="Действия", width=10, height=2, font=('Courier', 10), command=lambda :actionView(myWindow))
+    ectionButton.grid(row=0, column=4)
     # кнопка экспорт
     exportButton = Button(myWindow, text="Экспорт", width=10, height=2, font=('Courier', 10), command=lambda :exportView(myWindow))
     exportButton.grid(row=0, column=5)

@@ -1,3 +1,8 @@
+# путь к файлу БД
+myDataBasePath = 'database.csv'
+myProfBasePath = 'profBase.csv'
+
+
 # метод для экспорта БД в формат .json
 def exportToJSON(dataBase):
     myDataBasePathJson = 'database.json'
@@ -49,8 +54,6 @@ def exportToTXT(dataBase):
 
 # сохранение БД
 def exportToCSV(myDict):
-    # путь к файлу БД
-    myDataBasePath = 'database.csv'
     # открываем файл на запись
     with open(myDataBasePath, 'w+', encoding = 'utf-8') as dataBase:
         dataBase.write(f'id;name;surname;patronymic;position;salary;\n')
@@ -68,10 +71,6 @@ def exportToCSV(myDict):
 
 # метод для импорта БД в формат .csv. Используется для выдачи словаря, для последующей работы с ним
 def importCSV():
-    # путь к файлу БД
-    myDataBasePath = 'database.csv'
-    # переменная подсчета записей
-    myCount = 0
     # словарь, в который складываются записи из БД
     myDict = {}
     # открываем файл на чтение
@@ -95,19 +94,24 @@ def importCSV():
     return myDict
 
 
+def importProf():
+    dictProf = {}
+    with open(myProfBasePath, 'r', encoding = 'utf-8') as ProfBase:
+        text = ProfBase.read()
+        if len(text):
+            lines = text.split('\n')
+            # инкрементируем счетчик
+            for i in range(len(lines)):
+                if len(lines[i]):
+                    dictProf[i] = lines[i]
+        else:
+            dictProf[0] = ''
+    # возвращаем словарь
+    return dictProf
 
 
-'''
-# ------------------------------------------------------------------------
-# Проверка работы функций:
-
-print(importCSV())
-
-exportToTXT()
-
-exportToJSON()
-
-myDict = {1: ['Иван', 'Алеексеев', 'Иванович', 'электрик', '50000'], 2: ['Антон', 'Семенов', 'Петрович', 'сантехник', '51000'], 3: ['Никита', 'Иванов', 'Ильич', 'инженер', '52000']}
-
-exportToCSV(myDict)
-'''
+def exportProf(newPosition):
+    # открываем файл на запись
+    with open(myProfBasePath, 'a', encoding='utf-8') as profBase:
+        newPosition = newPosition + '\n'
+        profBase.write(newPosition)

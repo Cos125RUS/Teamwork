@@ -31,6 +31,11 @@ def findMember():
 # 4. Сделать выборку сотрудников по должности
 def position():
     uv.profRequest(myWindow)
+def checkPosition(position):
+    professionsList = cd.importProf()
+    return wwd.checkValidPosition(professionsList, position)
+def newPos(pos):
+    cd.exportProf(pos)
 
 # 5. Сделать выборку сотрудников по зарплате
 def salary():

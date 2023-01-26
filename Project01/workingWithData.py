@@ -1,3 +1,5 @@
+import TestControl as control
+
 # 1. Основные функции:
 
 # 1.1. Поиск сотрудника по ключу и значению
@@ -24,8 +26,7 @@ def findPersonal(myDict, request):
 # 1.2. Выборка сотрудников по должности
 def sortOfPosition(myDict, position):
     res = {}
-    print(position)
-    if checkValidPosition(position):  # Проверка на правильный ввод (если реализуем выбор профессии из списка вместо ввода, проверка не нужна)
+    if control.checkPosition(position):  # Проверка на правильный ввод (если реализуем выбор профессии из списка вместо ввода, проверка не нужна)
         if str(myDict.items()).count(position) > 0:  # Проверка совпадений во всём словаре по запрашиваемой должности
             for i in myDict:
                 if myDict[i][3] == position:
@@ -34,7 +35,6 @@ def sortOfPosition(myDict, position):
             res[0] = ['Нет сотрудников на данной должности']
     else:
         res[0] = ['Должность указана неверно']
-    print(res)
     return res
 
 
@@ -55,6 +55,9 @@ def sortOfSalary(myDict, value):
 
 # 1.4. Добавление сотрудника в словарь
 def newPersonal(myDict, newMember):
+    position = newMember[3]
+    if not control.checkPosition(position):
+        control.newPos(position)
     lastKeys = int(list(myDict.keys())[-1])  # Смотрим id последней записи
     # Проверяем, равен ли последний id общему количеству записей
     if lastKeys == len(myDict):
@@ -107,11 +110,7 @@ def takeProfile(myDict, id):
 # 3. Проверочные функции:
 
 # 3.1 Проверка поискового значения (профессия)
-def checkValidPosition(request):
-    # professions - база данных профессий в нашем учреждении по запросу из данного модуля
-    # professions = def()
-    professions = {1: 'электрик', 2: 'сантехник', 3: 'инженер', 4: 'директор',
-                   5: 'уборщик'}  # Временное решение для проверки
+def checkValidPosition(professions, request):
     return bool(list(check.count(request) for check in professions.items()).count(1))
 
 
