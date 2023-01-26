@@ -24,8 +24,8 @@ def findPersonal(myDict, request):
 # 1.2. Выборка сотрудников по должности
 def sortOfPosition(myDict, position):
     res = {}
-    if checkValidPosition(
-            position):  # Проверка на правильный ввод (если реализуем выбор профессии из списка вместо ввода, проверка не нужна)
+    print(position)
+    if checkValidPosition(position):  # Проверка на правильный ввод (если реализуем выбор профессии из списка вместо ввода, проверка не нужна)
         if str(myDict.items()).count(position) > 0:  # Проверка совпадений во всём словаре по запрашиваемой должности
             for i in myDict:
                 if myDict[i][3] == position:
@@ -34,11 +34,13 @@ def sortOfPosition(myDict, position):
             res[0] = ['Нет сотрудников на данной должности']
     else:
         res[0] = ['Должность указана неверно']
+    print(res)
     return res
 
 
 # 1.3. Выборка сотрудников по зарплате
-def sortOfSalary(myDict, min, max):
+def sortOfSalary(myDict, value):
+    min, max = value
     res = {}
     if checkValue(min, max):  # Проверка введённых значений
         for i in myDict:

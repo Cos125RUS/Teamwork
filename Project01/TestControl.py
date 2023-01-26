@@ -8,23 +8,17 @@ myWindow = uv.mainWindow()  # Загружаем меню
 
 # Стартовое меню
 def start():
-    global myWindow
     uv.upMenu(myWindow) # Верхнее меню
     myWindow.mainloop() # Мотор
 
 
 # 1. Отобразить список сотрудников
 def showInformation(data = dataBase):
-    global dataBase
-    global myWindow
-    uv.indention(myWindow, 2)
     uv.viewList(data, myWindow)
 
 
 # 2. Добавить сотрудника
 def addMember():
-    global dataBase
-    global myWindow
     uv.changeField(myWindow)
 
 
@@ -32,18 +26,20 @@ def addMember():
 
 # 3. Найти сотрудника
 def findMember():
-    global dataBase
-    global myWindow
-    uv.indention(myWindow, 4)
     uv.findRequest(myWindow)
 
+# 4. Сделать выборку сотрудников по должности
+def position():
+    uv.profRequest(myWindow)
 
-
+# 5. Сделать выборку сотрудников по зарплате
+def salary():
+    uv.salRequest(myWindow)
 
 
 # Транзит данных между функциями
 def transit(index, data):
-    function = [wwd.newPersonal, wwd.findPersonal]
+    function = [wwd.newPersonal, wwd.findPersonal, wwd.sortOfPosition, wwd.sortOfSalary]
     res = function[index](dataBase, data)
     cd.exportToCSV(dataBase)
     showInformation(res)
@@ -52,21 +48,11 @@ def transit(index, data):
 
 
 
-# 2. Сделать выборку сотрудников по должности
-def position():
-    global dataBase
-    global myWindow
-
-    return 0
 
 
 
-# 3. Сделать выборку сотрудников по зарплате
-def salary():
-    global dataBase
-    global myWindow
 
-    return 0
+
 
 
 
@@ -75,30 +61,24 @@ def salary():
 
 # 5. Удалить сотрудника
 def delMember():
-    global dataBase
-    global myWindow
 
     return 0
 
 
 # 6. Обновить данные сотрудника
 def update():
-    global dataBase
-    global myWindow
 
     return 0
 
 
 # 7. Экспортировать данные в формате json
 def exportJSON():
-    global dataBase
     cd.exportToJSON(dataBase)
 
 
 
 # 8. Экспортировать данные в формате txt
 def exportTXT():
-    global dataBase
     cd.exportToTXT(dataBase) # Сохраняем БД
 
 

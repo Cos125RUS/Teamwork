@@ -14,52 +14,52 @@ def mainWindow():
 
 # Верхнее меню
 def upMenu(myWindow):
-
     # кнопка справка
     menuButton = Button(myWindow, text="Сотрудники", width=10, height=2, font=('Courier', 10), command=control.showInformation)
     menuButton.grid(row=0, column=0)
-
     # кнопка добавить
     addButton = Button(myWindow, text="Добавить", width=10, height=2, font=('Courier', 10), command=control.addMember)
     addButton.grid(row=0, column=1)
-
     # кнопка найти
     findButton = Button(myWindow, text="Найти", width=10, height=2, font=('Courier', 10), command=control.findMember)
     findButton.grid(row=0, column=2)
-
     # кнопка изменить
-    changeButton = Button(myWindow, text="Изменить", width=10, height=2, font=('Courier', 10), command=control.update)
+    changeButton = Button(myWindow, text="Выборка", width=10, height=2, font=('Courier', 10), command=lambda :selectionView(myWindow))
     changeButton.grid(row=0, column=3)
-
     # кнопка удалить
-    deleteButton = Button(myWindow, text="Удалить", width=10, height=2, font=('Courier', 10), command=control.delMember)
+    deleteButton = Button(myWindow, text="Действия", width=10, height=2, font=('Courier', 10), command=lambda :actionView(myWindow))
     deleteButton.grid(row=0, column=4)
-
     # кнопка экспорт
     exportButton = Button(myWindow, text="Экспорт", width=10, height=2, font=('Courier', 10), command=lambda :exportView(myWindow))
     exportButton.grid(row=0, column=5)
-
     # Отступ
-    indention = Label(myWindow, text='', width=10, height=2)
-    indention.grid(row=1, column=1)
+    Label(myWindow, text='', width=10, height=2).grid(row=1, column=2)
 
 
 
-# Кнопки экспорта
+# Высплывающии кнопки:
+# Экспорт
 def exportView(myWindow):
     JSONButton = Button(myWindow, text="JSON", width=10, height=2, font=('Courier', 10), command=control.exportJSON)
     JSONButton.grid(row=1, column=5)
     TXTButton = Button(myWindow, text="TXT", width=10, height=2, font=('Courier', 10), command=control.exportTXT)
     TXTButton.grid(row=2, column=5)
 
-# Отступ
-def indention(myWindow, rows):
-    labelList = []
-    indentionRows = rows
-    for i in range(indentionRows):
-        indention = Label(myWindow, text='')
-        indention.grid(row=i + 1, column=1)
-        labelList.append([indention])
+# Выборка
+def selectionView(myWindow):
+    positionButton = Button(myWindow, text="Должность", width=10, height=2, font=('Courier', 10), command=control.position)
+    positionButton.grid(row=1, column=3)
+    salaryButton = Button(myWindow, text="Зарплата", width=10, height=2, font=('Courier', 10), command=control.salary)
+    salaryButton.grid(row=2, column=3)
+
+# Действия
+def actionView(myWindow):
+    changeButton = Button(myWindow, text="Изменить", width=10, height=2, font=('Courier', 10), command=None)
+    changeButton.grid(row=1, column=4)
+    delButton = Button(myWindow, text="Удадить", width=10, height=2, font=('Courier', 10), command=None)
+    delButton.grid(row=2, column=4)
+
+
 
 
 # Список на экране
@@ -124,3 +124,24 @@ def findRequest(myWindow):
     findButton = Button(myWindow, text="Найти", width=10, height=2, font=('Courier', 10),\
                        command=lambda : control.transit(1, (request.get())))
     findButton.grid(row=4, column=3)
+
+# Выбор должности
+def profRequest(myWindow):
+    Label(myWindow, text="Должность").grid(row=4, column=1)
+    request = Entry(width=10, font=('Courier', 10))
+    request.grid(row=4, column=2)
+    findButton = Button(myWindow, text="Найти", width=10, height=2, font=('Courier', 10),\
+                       command=lambda : control.transit(2, (request.get())))
+    findButton.grid(row=4, column=3)
+
+# Выбор зарплаты
+def salRequest(myWindow):
+    Label(myWindow, text="От").grid(row=4, column=0)
+    downLine = Entry(width=10, font=('Courier', 10))
+    downLine.grid(row=4, column=1)
+    Label(myWindow, text="До").grid(row=4, column=3)
+    upLine = Entry(width=10, font=('Courier', 10))
+    upLine.grid(row=4, column=4)
+    findButton = Button(myWindow, text="Найти", width=10, height=2, font=('Courier', 10),\
+                       command=lambda : control.transit(3, (downLine.get(), upLine.get())))
+    findButton.grid(row=6, column=2)
