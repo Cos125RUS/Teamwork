@@ -69,6 +69,7 @@ def viewList(myDict, myWindow):
     labelList = []
     lines = len(myDict.keys())
     myCount = lines
+    clear(myWindow)
 
     # цикл вывода Checkbutton и строчек БД
     for key in myDict:
@@ -93,6 +94,7 @@ def viewList(myDict, myWindow):
 
 # Добавление сотрудника
 def changeField(myWindow):
+    clear(myWindow)
     # вывести строку наименования таблицы БД
     Label(myWindow, text="Фамилия").grid(row=5, column=0)
     Label(myWindow, text="Имя").grid(row=5, column=1)
@@ -118,6 +120,7 @@ def changeField(myWindow):
 
 # Окно запросов
 def findRequest(myWindow):
+    clear(myWindow)
     Label(myWindow, text="Запрос").grid(row=4, column=1)
     request = Entry(width=10, font=('Courier', 10))
     request.grid(row=4, column=2)
@@ -127,6 +130,7 @@ def findRequest(myWindow):
 
 # Выбор должности
 def profRequest(myWindow):
+    clear(myWindow)
     Label(myWindow, text="Должность").grid(row=4, column=1)
     request = Entry(width=10, font=('Courier', 10))
     request.grid(row=4, column=2)
@@ -136,6 +140,7 @@ def profRequest(myWindow):
 
 # Выбор зарплаты
 def salRequest(myWindow):
+    clear(myWindow)
     Label(myWindow, text="От").grid(row=4, column=0)
     downLine = Entry(width=10, font=('Courier', 10))
     downLine.grid(row=4, column=1)
@@ -145,3 +150,20 @@ def salRequest(myWindow):
     findButton = Button(myWindow, text="Найти", width=10, height=2, font=('Courier', 10),\
                        command=lambda : control.transit(3, (downLine.get(), upLine.get())))
     findButton.grid(row=6, column=2)
+
+
+# Всплывающее окно
+def infoWindow(message):
+    newWindow = Tk()
+    newWindow.title('message')
+    newWindow.geometry('250x200')
+    newWindow.resizable(width=False, height=False)
+    Label(newWindow, text=message, width=250, height=200).pack()
+    newWindow.mainloop()
+
+# Халтурная очистка окна
+def clear(myWindow):
+    for widget in myWindow.winfo_children():
+        widget.destroy()
+    upMenu(myWindow)
+    # Label(myWindow, text=" ", width=450, height=450).pack()

@@ -47,9 +47,11 @@ def transit(index, data):
     function = [wwd.newPersonal, wwd.findPersonal, wwd.sortOfPosition, wwd.sortOfSalary]
     res = function[index](dataBase, data)
     cd.exportToCSV(dataBase)
-    showInformation(res)
-
-
+    # uv.clear(myWindow)
+    if 0 in res.keys():
+        uv.infoWindow(*res[0])
+    else:
+        showInformation(res)
 
 
 
