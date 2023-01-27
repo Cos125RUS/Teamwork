@@ -2,7 +2,6 @@ from tkinter import *
 import TestControl as control
 
 varList = []
-checkbuttonList = []
 
 
 def mainWindow():
@@ -62,7 +61,7 @@ def selectionView(myWindow):
 
 # Действия
 def actionView(myWindow):
-    changeButton = Button(myWindow, text="Изменить", width=10, height=2, font=('Courier', 10), command=None)
+    changeButton = Button(myWindow, text="Изменить", width=10, height=2, font=('Courier', 10), command=control.update)
     changeButton.grid(row=1, column=4)
     delButton = Button(myWindow, text="Удадить", width=10, height=2, font=('Courier', 10), command=control.delMember)
     delButton.grid(row=2, column=4)
@@ -71,8 +70,10 @@ def actionView(myWindow):
 # Список на экране
 def viewList(myDict, myWindow):
     labelList = []
+    checkbuttonList = []
     space = 10
     myCount = space
+    varList.clear()
     clear(myWindow)
 
     # цикл вывода Checkbutton и строчек БД
@@ -94,22 +95,19 @@ def viewList(myDict, myWindow):
         labelList.append([surname, name, patronomic, position, salary])
         myCount += 1
 
-
-
-
 # Чеклист
-def watchCheckList(myWindow, useData):
-    checkList = []
-    for i in varList:
-        checkList.append(1) if i.get() else checkList.append(0)
-    # for i in range(len(useData)):
-    #     print(myWindow.varList[i].get())
-        # if varList[i].get():
-            # checkList.append(i)
+def watchCheckList():
+    checkList = [] # Показания счётчиков
+    for count, i in enumerate(varList):
+        if i.get():
+            checkList.append(count)
+            i.set(0)
+    return checkList # Возвращаем позиции элементов в списке (не в словаре!)
+
 
 
 # Добавление сотрудника
-def changeField(myWindow):
+def changeField(myWindow, action):
     clear(myWindow)
     # вывести строку наименования таблицы БД
     Label(myWindow, text="Фамилия").grid(row=5, column=0)
@@ -130,7 +128,7 @@ def changeField(myWindow):
     enSalary.grid(row=6, column=4)
     # кнопка добавить
     addButton = Button(myWindow, text="Добавить", width=10, height=2, font=('Courier', 10), \
-                       command=lambda: control.transit(0, (
+                       command=lambda: control.transit(action, (
                            enName.get(), enSurname.get(), enPatronomic.get(), enPosition.get(), enSalary.get())))
     addButton.grid(row=6, column=5)
 

@@ -69,7 +69,7 @@ def newPersonal(myDict, newMember):
             if int(key) != i:
                 # Если находим пустую строку, вписываем туда нового пользователя
                 myDict[i] = list(newMember)
-                myDict = dict(sorted(myDict.keys()))
+                myDict = dict(sorted(myDict.items()))
                 break  # Прерываем поиск после первой найденной пустой строки
     return myDict # Не уверен, что его нужно возвращать. Вроде бы, он передаётся по ссылке.
 
@@ -78,13 +78,12 @@ def newPersonal(myDict, newMember):
 def deletionOnPerson(myDict, delMember):
     for delID in delMember.keys():  # Извлекаем id пользователя
         del myDict[delID]  # Удаляем пользователя по id
-    return myDict
 
 
 # 1.5(2) Удаление сотрудника по ID
 def deletionOnID(myDict, delID):
     del myDict[delID]
-    return myDict # Не уверен, что его нужно возвращать. Вроде бы, он передаётся по ссылке.
+
 
 
 # 1.6. Обновление данных сотрудника
@@ -95,6 +94,13 @@ def reloading(myDict, changedPersonal, PersID):
     myDict = dict(sorted(myDict.items()))  # Сортируем словарь
     return myDict
 
+# 1.7 Сортировка по флажку
+def checkSort(myDict, PersID):
+    sortList = {}
+    for i in PersID:
+        sortList[i] = myDict[i]
+    return sortList
+
 
 
 
@@ -104,6 +110,18 @@ def reloading(myDict, changedPersonal, PersID):
 def takeProfile(myDict, id):
     return {id: myDict[id]}
 
+# 2.2 Сформировать чеклист
+def createKeysList(useList, numbers):
+    # checkList = {}
+    # for i in range(len(useList)):
+    #     if i in numbers:
+    #         checkList[i] = useList[i]
+    # return checkList
+    keysList = []
+    allKeys = [i for i in list(useList.keys())]
+    for i in numbers:
+        keysList.append(allKeys[i])
+        return keysList
 
 
 
