@@ -43,7 +43,7 @@ def salary():
 
 # 6. Удалить сотрудника
 def delMember():
-    checkList = uv.watchCheckList() # Список выбранных позиций
+    checkList = uv.watchCheckList(True) # Список выбранных позиций (со сбросом выбранных элементов)
     keysList = wwd.createKeysList(useData, checkList) # Ключи
     for delID in keysList:
         wwd.deletionOnID(dataBase, delID)
@@ -56,20 +56,19 @@ def delMember():
 
 # 7. Обновить данные сотрудника
 def update():
-    global dataBase
-    checkList = uv.watchCheckList() # Список выбранных позиций
+    checkList = uv.watchCheckList() # Список выбранных позиций (без сброса флажков)
     if not checkList:
         uv.infoWindow('Выберите сотрудника')
     elif len(checkList) > 1:
         uv.infoWindow('Выбрано несколько сотрудников')
     else:
         uv.changeField(myWindow, 4)
-
 def saveNewMember(dataBase, personal):
+    checkList = uv.watchCheckList(True) # Обнуляем флаги
     keysList = wwd.createKeysList(useData, checkList)
     dataBase = wwd.reloading(dataBase, personal, keysList[0])
-
-    return 0
+    uv.infoWindow('Данные изменены')
+    return dataBase
 
 
 # 8. Экспортировать данные в формате json

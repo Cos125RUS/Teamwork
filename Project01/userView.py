@@ -96,12 +96,13 @@ def viewList(myDict, myWindow):
         myCount += 1
 
 # Чеклист
-def watchCheckList():
+def watchCheckList(clear = False):
     checkList = [] # Показания счётчиков
     for count, i in enumerate(varList):
         if i.get():
             checkList.append(count)
-            i.set(0)
+            if clear:
+                i.set(0)
     return checkList # Возвращаем позиции элементов в списке (не в словаре!)
 
 
