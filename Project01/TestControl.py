@@ -70,11 +70,12 @@ def update():
     else:
         uv.changeField(myWindow, 1)
 def saveChangeMember(dataBase, personal):
-    # global dataBase
+    global useData
     checkList = uv.watchCheckList(True) # Обнуляем флаги
     keysList = wwd.createKeysList(useData, checkList)
     dataBase = wwd.reloading(dataBase, personal, keysList[0])
     cd.exportToCSV(dataBase)
+    # useData = wwd.reloading(useData, personal, keysList[0])
     # uv.infoWindow('Данные изменены')
     return dataBase
 
