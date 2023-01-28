@@ -2,7 +2,8 @@ from tkinter import *
 import TestControl as control
 
 varList = []
-slideButton = [False, False, False]
+slideButton = {}
+slideButtonTumbler = [False, False, False]
 
 
 def mainWindow():
@@ -46,43 +47,49 @@ def upMenu(myWindow):
 # Экспорт
 def exportView(myWindow):
     global slideButton
-    JSONButton = Button(myWindow, text="JSON", width=10, height=2, font=('Courier', 10), command=control.exportJSON)
-    TXTButton = Button(myWindow, text="TXT", width=10, height=2, font=('Courier', 10), command=control.exportTXT)
-    if not slideButton[2]:
-        slideButton[2] = not slideButton[2]
+    if not slideButtonTumbler[2]:
+        JSONButton = Button(myWindow, text="JSON", width=10, height=2, font=('Courier', 10), command=control.exportJSON)
+        TXTButton = Button(myWindow, text="TXT", width=10, height=2, font=('Courier', 10), command=control.exportTXT)
         JSONButton.grid(row=1, column=5)
         TXTButton.grid(row=2, column=5)
+        slideButton['JSON'] = JSONButton
+        slideButton['TXT'] = TXTButton
     else:
-        slideButton[2] = not slideButton[2]
-        JSONButton.destroy()
-        TXTButton.destroy()
-
+        slideButton['JSON'].destroy()
+        slideButton['TXT'].destroy()
+    slideButtonTumbler[2] = not slideButtonTumbler[2]
 
 # Выборка
 def selectionView(myWindow):
     global slideButton
-    positionButton = Button(myWindow, text="Должность", width=10, height=2, font=('Courier', 10), command=control.position)
-    salaryButton = Button(myWindow, text="Зарплата", width=10, height=2, font=('Courier', 10), command=control.salary)
-    if not slideButton[1]:
+    if not slideButtonTumbler[1]:
+        positionButton = Button(myWindow, text="Должность", width=10, height=2, font=('Courier', 10), command=control.position)
+        salaryButton = Button(myWindow, text="Зарплата", width=10, height=2, font=('Courier', 10), command=control.salary)
+        slideButton['position'] = positionButton
+        slideButton['salary'] = salaryButton
         positionButton.grid(row=1, column=3)
         salaryButton.grid(row=2, column=3)
     else:
-        slideButton[1] = not slideButton[1]
-        positionButton.destroy()
-        salaryButton.destroy()
+        slideButton['position'].destroy()
+        slideButton['salary'].destroy()
+    slideButtonTumbler[1] = not slideButtonTumbler[1]
 
 # Действия
 def actionView(myWindow):
     global slideButton
-    changeButton = Button(myWindow, text="Изменить", width=10, height=2, font=('Courier', 10), command=control.update)
-    delButton = Button(myWindow, text="Удадить", width=10, height=2, font=('Courier', 10), command=control.delMember)
-    if not slideButton[0]:
+    if not slideButtonTumbler[0]:
+        changeButton = Button(myWindow, text="Изменить", width=10, height=2, font=('Courier', 10), command=control.update)
+        delButton = Button(myWindow, text="Удадить", width=10, height=2, font=('Courier', 10), command=control.delMember)
+        slideButton['change'] = changeButton
+        slideButton['del'] = delButton
         changeButton.grid(row=1, column=4)
         delButton.grid(row=2, column=4)
     else:
-        slideButton[0] = not slideButton[0]
-        changeButton.destroy()
-        delButton.destroy()
+        slideButton['change'].destroy()
+        slideButton['del'].destroy()
+    slideButtonTumbler[0] = not slideButtonTumbler[0]
+
+
 
 # Список на экране
 def viewList(myDict, myWindow):

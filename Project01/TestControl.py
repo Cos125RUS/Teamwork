@@ -25,7 +25,7 @@ def addMember():
 def saveAddMembers(dataBase, newPers):
     dataBase = wwd.newPersonal(dataBase, newPers)
     cd.exportToCSV(dataBase)
-    uv.infoWindow('Сотрудник добавлен')
+    # uv.infoWindow('Сотрудник добавлен')
     return dataBase
 
 
@@ -57,7 +57,7 @@ def delMember():
             wwd.deletionOnID(useData, delID)
     cd.exportToCSV(dataBase)
     showInformation(useData) if len(useData) else uv.clear(myWindow)
-    uv.infoWindow('Удалено')
+    # uv.infoWindow('Удалено')
 
 
 # 7. Обновить данные сотрудника
@@ -75,7 +75,7 @@ def saveChangeMember(dataBase, personal):
     keysList = wwd.createKeysList(useData, checkList)
     dataBase = wwd.reloading(dataBase, personal, keysList[0])
     cd.exportToCSV(dataBase)
-    uv.infoWindow('Данные изменены')
+    # uv.infoWindow('Данные изменены')
     return dataBase
 
 
