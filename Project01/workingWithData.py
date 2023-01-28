@@ -89,7 +89,7 @@ def deletionOnID(myDict, delID):
 # 1.6. Обновление данных сотрудника
 def reloading(myDict, changedPersonal, PersID):
     deletionOnID(myDict, PersID)  # Удаляем запись сотрудника
-    checkCorrectInput(myDict, changedPersonal)  # Проверка на повторения
+    # If checkCorrectInput(myDict, changedPersonal):  # Проверка на повторения (переделать под GUI)
     myDict[PersID] = list(changedPersonal)  # Создаём новую запись под тем же id
     myDict = dict(sorted(myDict.items()))  # Сортируем словарь
     return myDict

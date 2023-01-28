@@ -15,12 +15,18 @@ def start():
 
 # 1. Отобразить список сотрудников
 def showInformation(data = dataBase):
+    global dataBase
     uv.viewList(data, myWindow)
 
 
 # 2. Добавить сотрудника
 def addMember():
     uv.changeField(myWindow, 0)
+def saveAddMembers(dataBase, newPers):
+    dataBase = wwd.newPersonal(dataBase, newPers)
+    cd.exportToCSV(dataBase)
+    uv.infoWindow('Сотрудник добавлен')
+    return dataBase
 
 
 # 3. Найти сотрудника
@@ -63,12 +69,14 @@ def update():
         uv.infoWindow('Выбрано несколько сотрудников')
     else:
         uv.changeField(myWindow, 4)
-def saveNewMember(dataBase, personal):
+def saveChangeMember(dubbing, personal):
+    global dataBase
     checkList = uv.watchCheckList(True) # Обнуляем флаги
     keysList = wwd.createKeysList(useData, checkList)
     dataBase = wwd.reloading(dataBase, personal, keysList[0])
+    cd.exportToCSV(dataBase)
     uv.infoWindow('Данные изменены')
-    return dataBase
+    return useData
 
 
 # 8. Экспортировать данные в формате json
@@ -87,11 +95,9 @@ def exportTXT():
 
 # Транзит данных между функциями
 def transit(index, data):
-    function = [wwd.newPersonal, wwd.findPersonal, wwd.sortOfPosition, wwd.sortOfSalary, saveNewMember]
+    function = [saveAddMembers, wwd.findPersonal, wwd.sortOfPosition, wwd.sortOfSalary, saveChangeMember]
     global useData
     useData = function[index](dataBase, data)
-    cd.exportToCSV(dataBase)
-    # uv.clear(myWindow)
     if 0 in useData.keys():
         uv.infoWindow(*useData[0])
     else:
