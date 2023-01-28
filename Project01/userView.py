@@ -146,7 +146,7 @@ def changeField(myWindow, action):
     enSalary.grid(row=6, column=4)
     # кнопка добавить
     addButton = Button(myWindow, text="Добавить", width=10, height=2, font=('Courier', 10), \
-                       command=lambda: control.transit(action, (
+                       command=lambda: control.changesTransit(action, (
                            enName.get(), enSurname.get(), enPatronomic.get(), enPosition.get(), enSalary.get())))
     addButton.grid(row=6, column=5)
 

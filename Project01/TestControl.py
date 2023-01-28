@@ -68,15 +68,15 @@ def update():
     elif len(checkList) > 1:
         uv.infoWindow('Выбрано несколько сотрудников')
     else:
-        uv.changeField(myWindow, 4)
-def saveChangeMember(dubbing, personal):
-    global dataBase
+        uv.changeField(myWindow, 1)
+def saveChangeMember(dataBase, personal):
+    # global dataBase
     checkList = uv.watchCheckList(True) # Обнуляем флаги
     keysList = wwd.createKeysList(useData, checkList)
     dataBase = wwd.reloading(dataBase, personal, keysList[0])
     cd.exportToCSV(dataBase)
     uv.infoWindow('Данные изменены')
-    return useData
+    return dataBase
 
 
 # 8. Экспортировать данные в формате json
@@ -103,3 +103,10 @@ def transit(index, data):
     else:
         showInformation(useData)
 
+def changesTransit(index, data):
+    global dataBase
+    function = [saveAddMembers, saveChangeMember]
+    dataBase = function[index](dataBase, data)
+    # print(dataBase)
+    if len(dataBase):
+        showInformation(dataBase)
