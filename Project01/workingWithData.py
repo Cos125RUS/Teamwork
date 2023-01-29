@@ -1,10 +1,11 @@
+import TestControl as control
+
 # 1. Основные функции:
 
 # 1.1. Поиск сотрудника по ключу и значению
 def findPersonal(myDict, request):
     # request - поисковое значение, вводимое с клавиатуры (str)
     res = {}
-    requestWords = request.split()
     satisfyIndex = [0 for i in range(max(myDict.keys()) + 1)] # Список для подсчёта совпадений
     for i in myDict: # Проход по словарю
         for j in myDict[i]: # Проход по элементам
@@ -22,12 +23,10 @@ def findPersonal(myDict, request):
         res[0] = ['Сотрудник не найден']
     return res
 
-
 # 1.2. Выборка сотрудников по должности
 def sortOfPosition(myDict, position):
     res = {}
-    if checkValidPosition(
-            position):  # Проверка на правильный ввод (если реализуем выбор профессии из списка вместо ввода, проверка не нужна)
+    if control.checkPosition(position):  # Проверка на правильный ввод (если реализуем выбор профессии из списка вместо ввода, проверка не нужна)
         if str(myDict.items()).count(position) > 0:  # Проверка совпадений во всём словаре по запрашиваемой должности
             for i in myDict:
                 if myDict[i][3] == position:
@@ -40,7 +39,8 @@ def sortOfPosition(myDict, position):
 
 
 # 1.3. Выборка сотрудников по зарплате
-def sortOfSalary(myDict, min, max):
+def sortOfSalary(myDict, value):
+    min, max = value
     res = {}
     if checkValue(min, max):  # Проверка введённых значений
         for i in myDict:
@@ -55,6 +55,9 @@ def sortOfSalary(myDict, min, max):
 
 # 1.4. Добавление сотрудника в словарь
 def newPersonal(myDict, newMember):
+    position = newMember[3]
+    if not control.checkPosition(position):
+        control.newPos(position)
     lastKeys = int(list(myDict.keys())[-1])  # Смотрим id последней записи
     # Проверяем, равен ли последний id общему количеству записей
     if lastKeys == len(myDict):
@@ -75,22 +78,28 @@ def newPersonal(myDict, newMember):
 def deletionOnPerson(myDict, delMember):
     for delID in delMember.keys():  # Извлекаем id пользователя
         del myDict[delID]  # Удаляем пользователя по id
-    return myDict
 
 
 # 1.5(2) Удаление сотрудника по ID
 def deletionOnID(myDict, delID):
     del myDict[delID]
-    return myDict # Не уверен, что его нужно возвращать. Вроде бы, он передаётся по ссылке.
+
 
 
 # 1.6. Обновление данных сотрудника
 def reloading(myDict, changedPersonal, PersID):
     deletionOnID(myDict, PersID)  # Удаляем запись сотрудника
-    checkCorrectInput(myDict, changedPersonal)  # Проверка на повторения
+    # If checkCorrectInput(myDict, changedPersonal):  # Проверка на повторения (переделать под GUI)
     myDict[PersID] = list(changedPersonal)  # Создаём новую запись под тем же id
     myDict = dict(sorted(myDict.items()))  # Сортируем словарь
     return myDict
+
+# 1.7 Сортировка по флажку
+def checkSort(myDict, PersID):
+    sortList = {}
+    for i in PersID:
+        sortList[i] = myDict[i]
+    return sortList
 
 
 
@@ -101,17 +110,25 @@ def reloading(myDict, changedPersonal, PersID):
 def takeProfile(myDict, id):
     return {id: myDict[id]}
 
+# 2.2 Сформировать чеклист
+def createKeysList(useList, numbers):
+    # checkList = {}
+    # for i in range(len(useList)):
+    #     if i in numbers:
+    #         checkList[i] = useList[i]
+    # return checkList
+    keysList = []
+    allKeys = [i for i in list(useList.keys())]
+    for i in numbers:
+        keysList.append(allKeys[i])
+        return keysList
 
 
 
 # 3. Проверочные функции:
 
 # 3.1 Проверка поискового значения (профессия)
-def checkValidPosition(request):
-    # professions - база данных профессий в нашем учреждении по запросу из данного модуля
-    # professions = def()
-    professions = {1: 'электрик', 2: 'сантехник', 3: 'инженер', 4: 'директор',
-                   5: 'уборщик'}  # Временное решение для проверки
+def checkValidPosition(professions, request):
     return bool(list(check.count(request) for check in professions.items()).count(1))
 
 
